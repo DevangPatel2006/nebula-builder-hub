@@ -2,201 +2,157 @@ import { useEffect, useRef, useState } from 'react';
 import { Rocket } from 'lucide-react';
 
 const timelineEvents = [
-  {
-    date: 'Feb 1, 2026',
-    title: 'Registration Opens',
-    description: 'Start your journey by registering your team',
-  },
-  {
-    date: 'Feb 20, 2026',
-    title: 'Registration Closes',
-    description: 'Last date to submit your application',
-  },
-  {
-    date: 'Feb 28, 2026',
-    title: 'Shortlisting',
-    description: 'Selected teams will be announced',
-  },
-  {
-    date: 'Mar 14, 2026',
-    title: 'Hackathon Begins',
-    description: '36 hours of non-stop innovation',
-  },
-  {
-    date: 'Mar 15, 2026',
-    title: 'Results & Awards',
-    description: 'Winners announced and prizes distributed',
-  },
+  { date: 'Feb 1', title: 'Registration Opens' },
+  { date: 'Feb 20', title: 'Registration Closes' },
+  { date: 'Feb 28', title: 'Shortlisting' },
+  { date: 'Mar 14', title: 'Hackathon Begins' },
+  { date: 'Mar 15', title: 'Results & Awards' },
 ];
 
 export const TimelineSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const pathRef = useRef<SVGPathElement>(null);
+  const [spaceshipPos, setSpaceshipPos] = useState({ x: 50, y: 20, angle: 90 });
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!sectionRef.current || !pathRef.current) return;
       
       const rect = sectionRef.current.getBoundingClientRect();
-      const sectionHeight = rect.height;
       const viewportHeight = window.innerHeight;
       
-      // Calculate progress based on section position
-      const start = rect.top - viewportHeight;
-      const end = rect.bottom;
-      const total = end - start;
-      const current = -start;
+      const start = rect.top - viewportHeight * 0.8;
+      const end = rect.bottom - viewportHeight * 0.3;
+      const progress = Math.min(Math.max((0 - start) / (end - start), 0), 1);
       
-      const progress = Math.min(Math.max(current / total, 0), 1);
-      setScrollProgress(progress);
+      const pathLength = pathRef.current.getTotalLength();
+      const point = pathRef.current.getPointAtLength(progress * pathLength);
+      const nextPoint = pathRef.current.getPointAtLength(Math.min(progress * pathLength + 5, pathLength));
+      
+      const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI) + 90;
+      
+      setSpaceshipPos({ x: point.x, y: point.y, angle });
     };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate spaceship position along the path
-  const pathLength = 1200;
-  const spaceshipOffset = scrollProgress * pathLength;
-
   return (
-    <section ref={sectionRef} className="relative py-20 md:py-32 overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 md:py-24 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
-          <span className="inline-block font-display text-sm tracking-[0.3em] text-primary mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <span className="inline-block font-display text-sm tracking-[0.3em] text-primary mb-3">
             MARK YOUR CALENDAR
           </span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold tracking-wider mb-6">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-wider">
             EVENT <span className="text-gradient-neon">TIMELINE</span>
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg">
-            Key dates and milestones on your journey to HTS 26.
-          </p>
         </div>
 
-        {/* Timeline with curved path */}
-        <div className="relative max-w-5xl mx-auto">
-          {/* SVG Curved Path */}
+        <div className="relative max-w-4xl mx-auto h-[400px] md:h-[350px]">
           <svg
-            className="absolute left-1/2 -translate-x-1/2 w-full h-full pointer-events-none hidden md:block"
-            viewBox="0 0 400 1000"
-            preserveAspectRatio="none"
-            style={{ height: '100%', minHeight: '800px' }}
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 800 300"
+            preserveAspectRatio="xMidYMid meet"
           >
             <defs>
-              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="hsl(280 70% 50%)" />
-                <stop offset="30%" stopColor="hsl(300 70% 50%)" />
-                <stop offset="60%" stopColor="hsl(320 70% 50%)" />
-                <stop offset="100%" stopColor="hsl(30 80% 60%)" />
+                <stop offset="25%" stopColor="hsl(300 60% 50%)" />
+                <stop offset="50%" stopColor="hsl(320 60% 55%)" />
+                <stop offset="75%" stopColor="hsl(350 70% 60%)" />
+                <stop offset="100%" stopColor="hsl(30 80% 55%)" />
               </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
                 <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
             </defs>
-            
-            {/* Main curved path */}
+
+            {/* Background path */}
             <path
-              d="M 200 0 
-                 C 350 100, 350 150, 200 200 
-                 C 50 250, 50 300, 200 350 
-                 C 350 400, 350 450, 200 500 
-                 C 50 550, 50 600, 200 650 
-                 C 350 700, 350 750, 200 800
-                 L 200 1000"
+              d="M 50 150 
+                 C 120 50, 200 50, 250 150 
+                 C 300 250, 380 250, 430 150 
+                 C 480 50, 560 50, 610 150 
+                 C 660 250, 720 250, 770 150"
+              fill="none"
+              stroke="hsl(280 30% 15%)"
+              strokeWidth="6"
+              strokeLinecap="round"
+              opacity="0.5"
+            />
+
+            {/* Main glowing path */}
+            <path
+              ref={pathRef}
+              d="M 50 150 
+                 C 120 50, 200 50, 250 150 
+                 C 300 250, 380 250, 430 150 
+                 C 480 50, 560 50, 610 150 
+                 C 660 250, 720 250, 770 150"
               fill="none"
               stroke="url(#pathGradient)"
-              strokeWidth="8"
+              strokeWidth="5"
               strokeLinecap="round"
               filter="url(#glow)"
-              style={{
-                strokeDasharray: pathLength,
-                strokeDashoffset: pathLength - spaceshipOffset,
-                transition: 'stroke-dashoffset 0.1s ease-out'
-              }}
             />
-            
-            {/* Background path (dimmed) */}
-            <path
-              d="M 200 0 
-                 C 350 100, 350 150, 200 200 
-                 C 50 250, 50 300, 200 350 
-                 C 350 400, 350 450, 200 500 
-                 C 50 550, 50 600, 200 650 
-                 C 350 700, 350 750, 200 800
-                 L 200 1000"
-              fill="none"
-              stroke="hsl(280 30% 20%)"
-              strokeWidth="8"
-              strokeLinecap="round"
-              opacity="0.3"
-            />
+
+            {/* Timeline markers */}
+            {[50, 250, 430, 610, 770].map((x, i) => (
+              <g key={i}>
+                <circle cx={x} cy={150} r="8" fill="hsl(280 60% 40%)" filter="url(#softGlow)" />
+                <circle cx={x} cy={150} r="4" fill="hsl(var(--primary))" />
+              </g>
+            ))}
+
+            {/* Spaceship */}
+            <g
+              transform={`translate(${spaceshipPos.x}, ${spaceshipPos.y}) rotate(${spaceshipPos.angle})`}
+              style={{ transition: 'transform 0.15s ease-out' }}
+            >
+              <circle r="20" fill="hsl(186 100% 50% / 0.3)" filter="url(#glow)" />
+              <circle r="12" fill="hsl(186 100% 50% / 0.5)" />
+              <g transform="translate(-8, -8)">
+                <Rocket className="w-4 h-4 text-background" style={{ width: 16, height: 16 }} />
+              </g>
+            </g>
           </svg>
 
-          {/* Spaceship indicator */}
-          <div 
-            className="absolute left-1/2 -translate-x-1/2 z-20 hidden md:block transition-all duration-100 ease-out"
-            style={{
-              top: `${scrollProgress * 80}%`,
-            }}
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/50 rounded-full blur-xl animate-pulse" style={{ width: '60px', height: '60px', marginLeft: '-15px', marginTop: '-15px' }} />
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-glow-cyan">
-                <Rocket className="w-5 h-5 text-background rotate-180" />
-              </div>
-            </div>
-          </div>
-
-          {/* Timeline Items */}
-          <div className="relative space-y-8 md:space-y-24">
-            {timelineEvents.map((event, index) => (
-              <div
-                key={event.title}
-                className={`relative flex flex-col md:flex-row items-center gap-4 md:gap-8 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
-              >
-                {/* Content Card */}
-                <div className={`flex-1 w-full md:w-auto ${index % 2 === 0 ? 'md:text-right md:pr-20' : 'md:text-left md:pl-20'}`}>
-                  <div 
-                    className="glass-card p-4 md:p-6 hover:scale-105 transition-all duration-300 border border-primary/20"
-                    style={{
-                      opacity: scrollProgress > (index / timelineEvents.length) ? 1 : 0.4,
-                      transform: scrollProgress > (index / timelineEvents.length) ? 'translateY(0)' : 'translateY(20px)',
-                      transition: 'all 0.5s ease-out'
-                    }}
-                  >
-                    <span className="font-display text-xs md:text-sm tracking-wider text-primary">
-                      {event.date}
-                    </span>
-                    <h3 className="font-display text-lg md:text-xl font-bold tracking-wider text-foreground mt-2 mb-2">
-                      {event.title}
-                    </h3>
-                    <p className="text-muted-foreground text-xs md:text-sm">
-                      {event.description}
-                    </p>
-                  </div>
+          {/* Event labels */}
+          <div className="absolute inset-0 pointer-events-none">
+            {timelineEvents.map((event, i) => {
+              const positions = [
+                { left: '6%', top: '60%' },
+                { left: '28%', top: '10%' },
+                { left: '50%', top: '60%' },
+                { left: '72%', top: '10%' },
+                { left: '92%', top: '60%' },
+              ];
+              return (
+                <div
+                  key={event.title}
+                  className="absolute transform -translate-x-1/2 text-center"
+                  style={{ left: positions[i].left, top: positions[i].top }}
+                >
+                  <p className="font-display text-xs md:text-sm text-primary font-bold">{event.date}</p>
+                  <p className="text-[10px] md:text-xs text-foreground/80 whitespace-nowrap">{event.title}</p>
                 </div>
-
-                {/* Center marker for mobile */}
-                <div className="md:hidden w-4 h-4 rounded-full bg-gradient-to-br from-primary to-accent shadow-glow-cyan" />
-
-                {/* Spacer for desktop layout */}
-                <div className="hidden md:block flex-1" />
-              </div>
-            ))}
+              );
+            })}
           </div>
-
-          {/* Mobile vertical line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-accent to-secondary transform -translate-x-1/2 md:hidden opacity-30" />
         </div>
       </div>
     </section>
