@@ -4,6 +4,7 @@ import { StarField } from '@/components/StarField';
 import { HeroSection } from '@/components/HeroSection';
 import { TracksSection } from '@/components/TracksSection';
 import { HighlightsSection } from '@/components/HighlightsSection';
+import { CodeVerseTracksSection } from '@/components/CodeVerseTracksSection';
 import { TimelineSection } from '@/components/TimelineSection';
 import { SponsorsSection } from '@/components/SponsorsSection';
 
@@ -15,6 +16,7 @@ const Index = () => {
       <HeroSection />
       <TracksSection />
       <HighlightsSection />
+      <CodeVerseTracksSection />
       <TimelineSection />
       <SponsorsSection />
       <Footer />

@@ -128,7 +128,7 @@ export const TimelineSection = () => {
     'C 700 25, 740 85, 780 150';
 
   return (
-    <section ref={containerRef} className="relative" style={{ height: '200vh' }}>
+    <section ref={containerRef} className="relative" style={{ height: '100vh' }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-8">
