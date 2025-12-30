@@ -9,7 +9,7 @@ const timelineEvents = [
 ];
 
 export const TimelineSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
   const pathRef = useRef<SVGPathElement>(null);
 
   const targetProgressRef = useRef(0);
@@ -18,52 +18,105 @@ export const TimelineSection = () => {
   const [progress, setProgress] = useState(0);
   const [spaceshipPos, setSpaceshipPos] = useState({ x: 30, y: 150, angle: 90 });
 
+  // Sticky-scroll (scroll-jack): while this section is pinned, we consume scroll to drive the animation.
+  // Once progress hits the end, we stop consuming scroll so the page continues normally.
   useEffect(() => {
-    const computeTargetProgress = () => {
-      if (!containerRef.current) return;
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const speed = 0.0009;
 
-      const rect = containerRef.current.getBoundingClientRect();
+    const isPinned = () => {
+      const el = containerRef.current;
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
-
-      // Start only when the section top reaches the viewport center.
-      const startAt = vh * 0.5;
-      const scrollable = Math.max(rect.height - vh, 1);
-
-      const raw = (startAt - rect.top) / scrollable;
-      targetProgressRef.current = Math.min(Math.max(raw, 0), 1);
+      return rect.top <= 0 && rect.bottom >= vh;
     };
 
+    const applyDelta = (deltaY: number) => {
+      targetProgressRef.current = clamp01(targetProgressRef.current + deltaY * speed);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (!isPinned()) return;
+
+      const deltaY = e.deltaY;
+      const t = targetProgressRef.current;
+      const atStart = t <= 0.0001;
+      const atEnd = t >= 0.9999;
+
+      const shouldCapture = (deltaY > 0 && !atEnd) || (deltaY < 0 && !atStart);
+      if (!shouldCapture) return;
+
+      e.preventDefault();
+      applyDelta(deltaY);
+    };
+
+    let lastTouchY = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      lastTouchY = e.touches[0]?.clientY ?? 0;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isPinned()) return;
+
+      const y = e.touches[0]?.clientY ?? lastTouchY;
+      const deltaY = lastTouchY - y; // match wheel deltaY sign
+      lastTouchY = y;
+
+      const t = targetProgressRef.current;
+      const atStart = t <= 0.0001;
+      const atEnd = t >= 0.9999;
+
+      const shouldCapture = (deltaY > 0 && !atEnd) || (deltaY < 0 && !atStart);
+      if (!shouldCapture) return;
+
+      e.preventDefault();
+      applyDelta(deltaY);
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+    };
+  }, []);
+
+  // Smooth movement (avoid jitter): ease the visible progress toward the scroll-driven target.
+  useEffect(() => {
     const tick = () => {
-      computeTargetProgress();
+      const t = targetProgressRef.current;
 
-      // Smoothly ease progress toward target (prevents jitter)
       setProgress((p) => {
-        const next = p + (targetProgressRef.current - p) * 0.12;
-        return Math.abs(next - p) < 0.0005 ? targetProgressRef.current : next;
+        const next = p + (t - p) * 0.14;
+        return Math.abs(next - p) < 0.0005 ? t : next;
       });
-
-      if (pathRef.current) {
-        const pathLength = pathRef.current.getTotalLength();
-        const p = targetProgressRef.current;
-        const point = pathRef.current.getPointAtLength(p * pathLength);
-        const nextPoint = pathRef.current.getPointAtLength(Math.min(p * pathLength + 10, pathLength));
-        const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI) + 90;
-        setSpaceshipPos({ x: point.x, y: point.y, angle });
-      }
 
       rafRef.current = requestAnimationFrame(tick);
     };
 
     rafRef.current = requestAnimationFrame(tick);
 
-    const onResize = () => computeTargetProgress();
-    window.addEventListener('resize', onResize);
-
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      window.removeEventListener('resize', onResize);
     };
   }, []);
+
+  // Move + rotate the spaceship along the curve.
+  useEffect(() => {
+    if (!pathRef.current) return;
+
+    const pathLength = pathRef.current.getTotalLength();
+    const point = pathRef.current.getPointAtLength(progress * pathLength);
+    const nextPoint = pathRef.current.getPointAtLength(Math.min(progress * pathLength + 10, pathLength));
+    const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI) + 90;
+
+    setSpaceshipPos({ x: point.x, y: point.y, angle });
+  }, [progress]);
 
   // Uneven wave path - varied amplitudes and wavelengths
   const wavePath =
@@ -75,7 +128,7 @@ export const TimelineSection = () => {
     'C 700 25, 740 85, 780 150';
 
   return (
-    <section ref={containerRef} className="relative" style={{ height: '280vh' }}>
+    <section ref={containerRef} className="relative min-h-screen">
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-8">
