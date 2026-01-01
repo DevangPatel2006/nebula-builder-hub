@@ -40,14 +40,19 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      {/* overflow-visible ensures the 600px image is never cut off even if the section is shorter */}
+      <section className="relative pt-32 pb-20 overflow-visible">
+        {/* - top-0: Starts the image container exactly at the top of this section (where the header ends).
+           - h-[600px] w-[600px]: Keeps your exact original dimensions.
+           - backgroundPosition: 'top right': Ensures the image starts at the very top of its container.
+        */}
         <div 
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-30"
+          className="absolute right-0 top-15 w-[600px] h-[600px] opacity-30 pointer-events-none"
           style={{
             backgroundImage: `url(${planetImage})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundPosition: 'top right',
             filter: 'blur(2px)',
           }}
         />

@@ -100,19 +100,11 @@ export const HeroSection = () => {
         </div>
       )}
 
-      {/* Main Hero Content */}
-      <div className={`relative z-10 container mx-auto px-4 sm:px-6 text-center transition-opacity duration-700 ${showIntro ? 'opacity-0' : 'opacity-100'}`}>
+      {/* Main Hero Content - ADDED pt-24 sm:pt-32 to create space from header */}
+      <div className={`relative z-10 container mx-auto px-4 sm:px-6 text-center pt-24 sm:pt-32 transition-opacity duration-700 ${showIntro ? 'opacity-0' : 'opacity-100'}`}>
         <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-card/50 backdrop-blur-sm border border-border/50 animate-fade-in-up">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-xs sm:text-sm text-muted-foreground font-display tracking-wider">
-              500+ PARTICIPANTS
-            </span>
-          </div>
-
           {/* Main Title */}
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-wider animate-fade-in-up delay-200">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-wider animate-fade-in-up delay-200 ">
             <span className="text-gradient-neon">HACK THE SPRING</span>
             <br />
             <span className="text-foreground">2026</span>

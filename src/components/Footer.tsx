@@ -33,12 +33,7 @@ export const Footer = () => {
               >
                 <Instagram size={20} />
               </a>
-              <a
-                href="#"
-                className="p-2 rounded-lg bg-muted hover:bg-primary/20 text-muted-foreground hover:text-primary transition-all duration-300"
-              >
-                <Twitter size={20} />
-              </a>
+          
               <a
                 href="#"
                 className="p-2 rounded-lg bg-muted hover:bg-primary/20 text-muted-foreground hover:text-primary transition-all duration-300"
@@ -93,34 +88,39 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Location Map Widget */}
           <div className="space-y-6">
             <h4 className="font-display text-lg tracking-wider text-foreground">
-              Stay Updated
+              Find Us
             </h4>
-            <p className="text-muted-foreground text-sm">
-              Subscribe to get the latest updates about HTS 26.
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-muted border border-border rounded-lg text-sm focus:outline-none focus:border-primary transition-colors"
+            <div className="relative w-full h-40 rounded-lg overflow-hidden border border-border/50 group">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.114777265913!2d72.63974411136952!3d23.202534578964893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2bb127814b0f%3A0xc4f447781b0f585!2sGovernment%20Engineering%20College%20Gandhinagar!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="opacity-70 group-hover:opacity-100 transition-opacity duration-300"
               />
-              <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-display text-sm hover:shadow-glow-cyan transition-all duration-300">
-                Join
-              </button>
+              <a 
+                href="https://maps.app.goo.gl/9VcJMoaZm9UhcXxy8" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-20 cursor-pointer"
+                title="Open in Google Maps"
+              >
+                <span className="sr-only">Open Location in Google Maps</span>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm text-center md:text-left">
+      {/* Bottom Bar - Centered text with minimal spacing */}
+        <div className="mt-3 pt-2 border-t border-border/50 text-center">
+          <p className="text-muted-foreground text-[10px] sm:text-xs">
             © 2026 Hack The Spring. Organized by Government Engineering College, Gandhinagar.
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Made with 💜 for innovators
           </p>
         </div>
       </div>
