@@ -13,12 +13,15 @@ export const TimelineSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      // If timeline is already completed, keep it at 100%
+      if (isCompleted) return;
+      
       if (!sectionRef.current || !timelineRef.current) return;
 
-      const sectionRect = sectionRef.current.getBoundingClientRect();
       const timelineRect = timelineRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
@@ -31,15 +34,30 @@ export const TimelineSection = () => {
       const endPoint = windowHeight * 0.2;
       
       if (timelineTop > startPoint) {
-        setProgress(0);
+        // Only reset to 0 if we haven't started yet
+        if (progress === 0) {
+          setProgress(0);
+        }
       } else if (timelineTop + timelineHeight < endPoint) {
+        // Timeline completed - lock it at 100%
         setProgress(1);
+        setIsCompleted(true);
       } else {
         // Calculate progress as timeline scrolls through viewport
         const scrollableDistance = timelineHeight + (startPoint - endPoint);
         const scrolled = startPoint - timelineTop;
         const newProgress = Math.min(1, Math.max(0, scrolled / scrollableDistance));
-        setProgress(newProgress);
+        
+        // Only update if new progress is higher (one-way animation)
+        if (newProgress > progress) {
+          setProgress(newProgress);
+          
+          // Mark as completed when reaching 100%
+          if (newProgress >= 0.99) {
+            setIsCompleted(true);
+            setProgress(1);
+          }
+        }
       }
     };
 
@@ -47,7 +65,7 @@ export const TimelineSection = () => {
     handleScroll(); // Initial call
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isCompleted, progress]);
 
   // Calculate which milestones are active based on progress
   const getActiveIndex = () => {
