@@ -45,7 +45,7 @@ export const HighlightsSection = () => {
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-wider mb-6">
             EVENT <span className="text-gradient-neon">HIGHLIGHTS</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="font-sans text-muted-foreground text-lg">
             Experience the thrill of innovation with world-class amenities, expert mentorship, and life-changing opportunities.
           </p>
         </div>
@@ -67,7 +67,7 @@ export const HighlightsSection = () => {
               <h3 className="font-display text-lg font-bold tracking-wider text-foreground mb-1">
                 {item.title}
               </h3>
-              <p className="text-muted-foreground text-xs">
+              <p className="font-sans text-muted-foreground text-xs">
                 {item.description}
               </p>
             </div>

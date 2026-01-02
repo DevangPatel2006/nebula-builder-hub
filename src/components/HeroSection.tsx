@@ -82,7 +82,7 @@ export const HeroSection = () => {
             </h1>
             
             <p 
-              className={`font-display text-base sm:text-xl md:text-2xl tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground mt-4 sm:mt-6 transition-all duration-700 ${
+              className={`font-heading text-base sm:text-xl md:text-2xl tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground mt-4 sm:mt-6 transition-all duration-700 ${
                 introPhase >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
             >
@@ -111,23 +111,23 @@ export const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="font-display text-base sm:text-xl md:text-2xl tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground animate-fade-in-up delay-300">
+          <p className="font-heading text-base sm:text-xl md:text-2xl tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground animate-fade-in-up delay-300">
             INNOVATE • BUILD • COMPETE
           </p>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 animate-fade-in-up delay-400">
+          <p className="font-sans text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 animate-fade-in-up delay-400">
             Join the ultimate 36-hour coding marathon. Transform your ideas into reality, 
             connect with industry experts, and compete for amazing prizes.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4 animate-fade-in-up delay-500">
-            <Button variant="hero" size="lg" className="w-full sm:w-auto group">
+            <Button variant="hero" size="lg" className="w-full sm:w-auto group font-heading">
               <Rocket className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" />
               Register Now
             </Button>
-            <Button variant="glass" size="lg" className="w-full sm:w-auto">
+            <Button variant="glass" size="lg" className="w-full sm:w-auto font-heading">
               <Download className="w-4 h-4 sm:w-5 sm:h-5" />
               Download Brochure
             </Button>
@@ -135,7 +135,7 @@ export const HeroSection = () => {
 
           {/* Event Date */}
           <div className="pt-6 sm:pt-8 animate-fade-in-up delay-700">
-            <p className="font-display text-sm sm:text-lg tracking-wider text-primary">
+            <p className="font-heading text-sm sm:text-lg tracking-wider text-primary">
               MARCH 2026 • GEC GANDHINAGAR
             </p>
           </div>

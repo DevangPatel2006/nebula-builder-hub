@@ -22,7 +22,7 @@ export const Footer = () => {
                 }}
               />
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <p className="font-sans text-muted-foreground text-sm leading-relaxed">
               Hack The Spring 2026 - Where innovation meets opportunity. 
               Join us for the ultimate coding experience.
             </p>
@@ -45,7 +45,7 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-6">
-            <h4 className="font-display text-lg tracking-wider text-foreground">
+            <h4 className="font-heading text-lg tracking-wider text-foreground">
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -64,24 +64,24 @@ export const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-6">
-            <h4 className="font-display text-lg tracking-wider text-foreground">
+            <h4 className="font-heading text-lg tracking-wider text-foreground">
               Contact Us
             </h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-sm text-muted-foreground">
+              <li className="flex items-start gap-3 text-sm font-sans text-muted-foreground">
                 <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
                 <span>
                   Government Engineering College,<br />
                   Sector 28, Gandhinagar, Gujarat
                 </span>
               </li>
-              <li className="flex items-center gap-3 text-sm text-muted-foreground">
+              <li className="flex items-center gap-3 text-sm font-sans text-muted-foreground">
                 <Mail size={18} className="text-primary shrink-0" />
                 <a href="mailto:hackthespring@gec.ac.in" className="hover:text-primary transition-colors">
                   hackthespring@gec.ac.in
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-sm text-muted-foreground">
+              <li className="flex items-center gap-3 text-sm font-sans text-muted-foreground">
                 <Phone size={18} className="text-primary shrink-0" />
                 <span>+91 98765 43210</span>
               </li>
@@ -90,7 +90,7 @@ export const Footer = () => {
 
           {/* Location Map Widget */}
           <div className="space-y-6">
-            <h4 className="font-display text-lg tracking-wider text-foreground">
+            <h4 className="font-heading text-lg tracking-wider text-foreground">
               Find Us
             </h4>
             <div className="relative w-full h-40 rounded-lg overflow-hidden border border-border/50 group">

@@ -1,4 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Custom Fonts */
+@font-face {
+  font-family: 'CYN Modulator';
+  src: url('/fonts/CYN_ModulatorDemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans_SemiCondensed-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -99,12 +122,23 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Open Sans', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Orbitron', sans-serif;
+  /* Primary titles - CYN for main section headings */
+  h1 {
+    font-family: 'CYN Modulator', sans-serif;
+  }
+
+  /* Secondary headings - Barlow for h2/contact sections */
+  h2, h3, h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  /* Body text uses Open Sans by default */
+  h5, h6 {
+    font-family: 'Open Sans', sans-serif;
   }
 }
 

@@ -34,13 +34,13 @@ export const TracksSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="inline-block font-display text-sm tracking-[0.3em] text-primary mb-4 animate-fade-in-up">
+          <span className="inline-block font-heading text-sm tracking-[0.3em] text-primary mb-4 animate-fade-in-up">
             CHOOSE YOUR PATH
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-wider mb-6 animate-fade-in-up delay-100">
             <span className="text-gradient-neon">HACKATHON</span> TRACKS
           </h2>
-          <p className="text-muted-foreground text-lg animate-fade-in-up delay-200">
+          <p className="font-sans text-muted-foreground text-lg animate-fade-in-up delay-200">
             Three distinct domains, unlimited possibilities. Pick your arena and show the world what you're made of.
           </p>
         </div>
@@ -83,7 +83,7 @@ export const TracksSection = () => {
                 <h3 className="font-display text-2xl font-bold tracking-wider mb-2 text-foreground">
                   {track.title}
                 </h3>
-                <p className={`font-display text-sm tracking-wider mb-4 ${
+                <p className={`font-heading text-sm tracking-wider mb-4 ${
                   track.color === 'cyan' 
                     ? 'text-primary' 
                     : track.color === 'magenta' 
@@ -94,7 +94,7 @@ export const TracksSection = () => {
                 </p>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                <p className="font-sans text-muted-foreground text-sm leading-relaxed mb-6">
                   {track.description}
                 </p>
 

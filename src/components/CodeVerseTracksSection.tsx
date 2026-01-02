@@ -66,13 +66,13 @@ export const CodeVerseTracksSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block font-display text-sm tracking-[0.3em] text-primary mb-4">
+          <span className="inline-block font-heading text-sm tracking-[0.3em] text-primary mb-4">
             CODEVERSE DOMAINS
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-wider mb-6">
             CHOOSE YOUR <span className="text-gradient-neon">TRACK</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="font-sans text-muted-foreground text-lg">
             Explore diverse domains and build solutions that push the boundaries of innovation.
           </p>
         </div>
@@ -103,7 +103,7 @@ export const CodeVerseTracksSection = () => {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="font-sans text-muted-foreground text-sm leading-relaxed">
                     {track.description}
                   </p>
                 </div>

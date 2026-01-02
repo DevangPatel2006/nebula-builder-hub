@@ -83,7 +83,7 @@ export const TimelineSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block font-display text-sm tracking-[0.3em] text-primary mb-4">
+          <span className="inline-block font-heading text-sm tracking-[0.3em] text-primary mb-4">
             MARK YOUR CALENDAR
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-wider">
@@ -140,7 +140,7 @@ export const TimelineSection = () => {
                     >
                       {/* Date Badge */}
                       <span 
-                        className={`inline-block px-3 py-1 rounded-full text-xs font-display tracking-wider mb-3 transition-all duration-500`}
+                        className={`inline-block px-3 py-1 rounded-full text-xs font-heading tracking-wider mb-3 transition-all duration-500`}
                         style={{
                           background: isActive 
                             ? 'linear-gradient(135deg, hsl(186 100% 50% / 0.3), hsl(300 100% 50% / 0.3))'

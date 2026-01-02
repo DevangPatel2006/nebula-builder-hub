@@ -4,13 +4,13 @@ export const SponsorsSection = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block font-display text-sm tracking-[0.3em] text-primary mb-4">
+          <span className="inline-block font-heading text-sm tracking-[0.3em] text-primary mb-4">
             OUR PARTNERS
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold tracking-wider mb-6">
             POWERED BY <span className="text-gradient-neon">INDUSTRY LEADERS</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="font-sans text-muted-foreground text-lg">
             Join hands with the companies shaping the future of technology.
           </p>
         </div>
@@ -19,7 +19,7 @@ export const SponsorsSection = () => {
         <div className="space-y-16">
           {/* Title Sponsors */}
           <div>
-            <h3 className="font-display text-center text-sm tracking-[0.3em] text-muted-foreground mb-8">
+            <h3 className="font-heading text-center text-sm tracking-[0.3em] text-muted-foreground mb-8">
               TITLE SPONSOR
             </h3>
             <div className="flex justify-center">
@@ -33,7 +33,7 @@ export const SponsorsSection = () => {
 
           {/* Gold Sponsors */}
           <div>
-            <h3 className="font-display text-center text-sm tracking-[0.3em] text-muted-foreground mb-8">
+            <h3 className="font-heading text-center text-sm tracking-[0.3em] text-muted-foreground mb-8">
               GOLD SPONSORS
             </h3>
             <div className="flex flex-wrap justify-center gap-6">
@@ -52,7 +52,7 @@ export const SponsorsSection = () => {
 
           {/* Silver Sponsors */}
           <div>
-            <h3 className="font-display text-center text-sm tracking-[0.3em] text-muted-foreground mb-8">
+            <h3 className="font-heading text-center text-sm tracking-[0.3em] text-muted-foreground mb-8">
               SILVER SPONSORS
             </h3>
             <div className="flex flex-wrap justify-center gap-4">
@@ -72,12 +72,12 @@ export const SponsorsSection = () => {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-4">
+          <p className="font-sans text-muted-foreground mb-4">
             Interested in sponsoring HTS 26?
           </p>
           <a 
             href="mailto:sponsors@hackthespring.com"
-            className="inline-flex items-center gap-2 font-display text-primary hover:text-accent transition-colors"
+            className="inline-flex items-center gap-2 font-heading text-primary hover:text-accent transition-colors"
           >
             Become a Sponsor →
           </a>
