@@ -72,9 +72,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Open Sans", "sans-serif"],
-        display: ["CYN Modulator", "sans-serif"],
-        heading: ["Barlow Condensed", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+        display: ["Orbitron", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
