@@ -73,7 +73,7 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
-        display: ["Starlord", "Orbitron", "sans-serif"],
+        display: ["Orbitron", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

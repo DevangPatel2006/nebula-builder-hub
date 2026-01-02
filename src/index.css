@@ -1,12 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-@font-face {
-  font-family: 'Starlord';
-  src: url('/fonts/Starlord.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -112,7 +104,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Starlord', 'Orbitron', sans-serif;
+    font-family: 'Orbitron', sans-serif;
   }
 }
 
