@@ -51,25 +51,22 @@ export const HighlightsSection = () => {
         </div>
 
         {/* Highlights Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="flex flex-wrap justify-center gap-4">
           {highlights.map((item, index) => (
             <div
               key={item.title}
-              className="group relative text-center p-6 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/30 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2"
+              className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-card/30 backdrop-blur-sm border border-border/30 hover:border-primary/50 transition-all duration-500"
               style={{ animationDelay: `${index * 50}ms` }}
             >
               {/* Icon */}
-              <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:shadow-glow-cyan transition-all duration-500">
-                <item.icon className="w-7 h-7 text-primary" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:shadow-glow-cyan transition-all duration-500">
+                <item.icon className="w-5 h-5 text-primary" />
               </div>
 
-              {/* Content */}
-              <h3 className="font-display text-lg font-bold tracking-wider text-foreground mb-1">
+              {/* Title Only */}
+              <h3 className="font-display text-base font-bold tracking-wider text-foreground">
                 {item.title}
               </h3>
-              <p className="text-muted-foreground text-xs">
-                {item.description}
-              </p>
             </div>
           ))}
         </div>

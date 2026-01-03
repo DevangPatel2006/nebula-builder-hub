@@ -6,21 +6,18 @@ const tracks = [
     icon: Code,
     title: 'CodeVerse',
     subtitle: 'Software & AI',
-    description: 'Build innovative software solutions powered by cutting-edge AI and machine learning technologies.',
     color: 'cyan',
   },
   {
     icon: Lightbulb,
     title: 'IdeaVerse',
     subtitle: 'Startup & Innovation',
-    description: 'Transform your groundbreaking ideas into viable startup concepts with real-world potential.',
     color: 'magenta',
   },
   {
     icon: Cpu,
     title: 'TechnoVerse',
     subtitle: 'Hardware & IoT',
-    description: 'Create physical products and IoT solutions that bridge the digital and physical worlds.',
     color: 'purple',
   },
 ];
@@ -42,12 +39,12 @@ export const TracksSection = () => {
           </h2>
         </div>
 
-        {/* Tracks Grid - Horizontal cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {/* Tracks Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-5xl mx-auto mb-8">
           {tracks.map((track, index) => (
             <div
               key={track.title}
-              className="group relative glass-card p-4 hover:scale-105 transition-all duration-500"
+              className="group relative glass-card p-6 hover:scale-105 transition-all duration-500 text-center"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Glow Effect */}
@@ -61,11 +58,11 @@ export const TracksSection = () => {
                 }`}
               />
 
-              {/* Content - Horizontal layout */}
-              <div className="relative z-10 flex items-center gap-4">
+              {/* Content */}
+              <div className="relative z-10 flex flex-col items-center gap-3">
                 {/* Icon */}
                 <div 
-                  className={`w-12 h-12 rounded-lg flex-shrink-0 flex items-center justify-center transition-all duration-500 ${
+                  className={`w-14 h-14 rounded-lg flex items-center justify-center transition-all duration-500 ${
                     track.color === 'cyan'
                       ? 'bg-primary/20 text-primary group-hover:shadow-glow-cyan'
                       : track.color === 'magenta'
@@ -73,15 +70,15 @@ export const TracksSection = () => {
                       : 'bg-secondary/20 text-secondary group-hover:shadow-glow-purple'
                   }`}
                 >
-                  <track.icon className="w-6 h-6" />
+                  <track.icon className="w-7 h-7" />
                 </div>
 
                 {/* Title & Subtitle */}
                 <div>
-                  <h3 className="font-display text-lg font-bold tracking-wider text-foreground">
+                  <h3 className="font-display text-xl font-bold tracking-wider text-foreground">
                     {track.title}
                   </h3>
-                  <p className={`font-display text-xs tracking-wider ${
+                  <p className={`font-display text-sm tracking-wider ${
                     track.color === 'cyan' 
                       ? 'text-primary' 
                       : track.color === 'magenta' 
@@ -105,6 +102,14 @@ export const TracksSection = () => {
               />
             </div>
           ))}
+        </div>
+
+        {/* Learn More Button */}
+        <div className="text-center">
+          <Button variant="neon" className="group">
+            Learn More
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </div>
     </section>
